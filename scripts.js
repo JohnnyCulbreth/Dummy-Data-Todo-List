@@ -1,4 +1,4 @@
-let arrayOfTodos = [
+const arrayOfTodos = [
     {
     "userId": 14,
     "id": 1,
@@ -13,15 +13,22 @@ let arrayOfTodos = [
 }]
 
 const fetchTodos = () => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
+    fetch('https://reqres.in/api/users?page=2')
     .then( (response) => response.json())
-    .then( (json) => arrayOfTodos = json)
+    .then( (json) => populateTodos(json))
 }
 
 const logTodos = () => {
     console.log(arrayOfTodos)
 }
 
-const populateTodos = () => {
+const populateTodos = (json) => {
+    const todoList = document.getElementById('todo-list');
 
+    for (let i = 0; i < json.data.length; i++) {
+        const element = document.createElement('li');
+        element.innerHTML = `<img src="${json.data[i].avatar}">`
+        todoList.appendChild(element)
+    }
 }
+
